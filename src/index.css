@@ -1,0 +1,311 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   FONT FACE - RetroGaming
+   ============================================================ */
+@font-face {
+  font-family: 'RetroGaming';
+  src: url('assets/fonts/RetroGaming.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   ============================================================ */
+:root {
+  /* --- Gold / Primary --- */
+  --color-gold:        #E9C140;
+  --color-gold-light:  #F5D76E;
+  --color-gold-dark:   #C9A022;
+  --color-gold-muted:  #B8951F;
+  --color-gold-pale:   #F9EBB2;
+  --color-gold-glow:   rgba(233, 193, 64, 0.35);
+
+  /* --- Dark / Background --- */
+  --color-dark:        #0A0A0A;
+  --color-surface:     #111111;
+  --color-card:        #1A1A1A;
+  --color-elevated:    #222222;
+  --color-border:      #2A2A2A;
+
+  /* --- Text --- */
+  --color-text-primary:   #F5F0E8;
+  --color-text-secondary: #C8BFA8;
+  --color-text-muted:     #8A7F6E;
+  --color-text-inverse:   #0A0A0A;
+  --color-text-gold:      #E9C140;
+
+  /* --- Status --- */
+  --color-success: #4CAF50;
+  --color-error:   #E53935;
+  --color-warning: #FFA726;
+
+  /* --- Overlay --- */
+  --overlay-light:      rgba(255, 255, 255, 0.05);
+  --overlay-medium:     rgba(0, 0, 0, 0.5);
+  --overlay-heavy:      rgba(0, 0, 0, 0.85);
+  --overlay-gold:       rgba(233, 193, 64, 0.1);
+  --overlay-gold-hover: rgba(233, 193, 64, 0.2);
+
+  /* --- Gradients --- */
+  --gradient-gold-btn:     linear-gradient(135deg, #F5D76E 0%, #E9C140 50%, #C9A022 100%);
+  --gradient-dark-surface: linear-gradient(180deg, #111111 0%, #0A0A0A 100%);
+  --gradient-page-bg:      radial-gradient(ellipse at top, #1a150a 0%, #0A0A0A 60%);
+
+  /* --- Layout --- */
+  --max-width:    448px;
+  --page-padding: 1.25rem;
+  --btn-height:   3.5rem;
+  --radius-pill:  9999px;
+  --radius-card:  1rem;
+  --radius-sm:    0.5rem;
+
+  /* --- Fonts --- */
+  --font-gaming: 'RetroGaming', 'Courier New', monospace;
+  --font-body:   'Inter', system-ui, -apple-system, sans-serif;
+
+  /* --- Shadows --- */
+  --shadow-gold: 0 4px 20px rgba(233, 193, 64, 0.3), 0 0 40px rgba(233, 193, 64, 0.1);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-btn:  0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   BASE RESET & GLOBAL STYLES
+   ============================================================ */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-dark);
+    color: var(--color-text-primary);
+    min-height: 100dvh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 300px 300px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+    min-height: 100dvh;
+    background: var(--gradient-page-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+  }
+}
+
+/* ============================================================
+   COMPONENT CLASSES
+   ============================================================ */
+@layer components {
+
+  /* Layout container — Linktree-style mobile width */
+  .page-container {
+    width: 100%;
+    max-width: var(--max-width);
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Pixel/retro font */
+  .font-gaming {
+    font-family: var(--font-gaming);
+    letter-spacing: 0.05em;
+    -webkit-font-smoothing: none;
+    font-smooth: never;
+  }
+
+  /* Gold text glow */
+  .text-gold-glow {
+    color: var(--color-gold);
+    text-shadow:
+      0 0 20px var(--color-gold-glow),
+      0 0 40px rgba(233,193,64,0.15);
+  }
+
+  /* Gold pill button */
+  .btn-gold {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    height: var(--btn-height);
+    border-radius: var(--radius-pill);
+    background: var(--gradient-gold-btn);
+    color: var(--color-text-inverse);
+    font-family: var(--font-gaming);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-btn);
+    position: relative;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-gold::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, transparent 60%);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold);
+    filter: brightness(1.08);
+  }
+
+  .btn-gold:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+  }
+
+  /* Back button */
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-gold);
+    font-family: var(--font-gaming);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    transition: all 0.2s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .btn-back:hover {
+    color: var(--color-gold-light);
+    transform: translateX(-2px);
+  }
+
+  /* Download / outline button */
+  .btn-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    border: 1.5px solid var(--color-gold);
+    color: var(--color-gold);
+    font-family: var(--font-gaming);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .btn-download:hover:not(:disabled) {
+    background: var(--overlay-gold-hover);
+    box-shadow: var(--shadow-gold);
+    transform: translateY(-1px);
+  }
+
+  .btn-download:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .btn-download:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Glass card */
+  .glass-card {
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--color-card) 25%,
+      var(--color-elevated) 50%,
+      var(--color-card) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
