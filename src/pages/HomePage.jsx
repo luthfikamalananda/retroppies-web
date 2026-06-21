@@ -1,11 +1,10 @@
-import { useEffect } from 'react'
-import { useSearchParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { logoRetroppies } from '../assets'
+import { PageTransition, Skeleton, StateCard } from '../components/ui'
 import { useSessionStore } from '../store/sessionStore'
 import { getExpiryInfo } from '../utils/helpers'
-import { PageTransition, Skeleton, StateCard } from '../components/ui'
-import { COLORS } from '../constants'
-import { logoRetroppies } from '../assets'
 
 const NAV_BUTTONS = [
   {
@@ -112,7 +111,7 @@ export default function HomePage() {
 
   return (
     <PageTransition>
-      <div className="page-container px-12 flex flex-col " style={{
+      <div className="page-container px-12 flex flex-col justify-center items-center" style={{
         display: 'flex',
         flexDirection: 'column',
         paddingTop: '2.5rem',
@@ -148,12 +147,13 @@ export default function HomePage() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          className='gap-6'
+          className='gap-6 px-6'
           animate={loading ? 'hidden' : 'show'}
           style={{
             display: 'flex',
             flexDirection: 'column',
             marginTop: '1.5rem',
+            width: "100%",
             // flex: 1,
           }}
         >
@@ -165,7 +165,7 @@ export default function HomePage() {
               <motion.button
                 key={btn.id}
                 variants={itemVariants}
-                className=" font-gaming text-[#1C1B1F] font-bold text-lg bg-[#E9C140] rounded-full w-full h-16"
+                className=" font-gaming text-[#1C1B1F] font-bold text-md bg-[#E9C140] rounded-full w-full h-16"
                 onClick={() => handleNav(btn.path)}
                 whileTap={{ scale: 0.97 }}
                 aria-label={`Lihat ${btn.label}`}

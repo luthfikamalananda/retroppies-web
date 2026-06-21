@@ -24,7 +24,9 @@ export default function GifPage() {
         paddingTop: '1.25rem',
         paddingBottom: '2rem',
         display: 'flex',
-        z: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 10,
         flexDirection: 'column',
         minHeight: '100dvh',
       }}>
@@ -51,6 +53,7 @@ export default function GifPage() {
                 background: 'var(--color-card)',
                 boxShadow: 'var(--shadow-card)',
                 position: 'relative',
+                height: "100%"
               }}
             >
               {/* Loading state while GIF loads */}

@@ -4,8 +4,8 @@ import { COLORS } from '../constants'
 
 const pageVariants = {
   initial: { opacity: 0, x: 20 },
-  in:      { opacity: 1, x: 0 },
-  out:     { opacity: 0, x: -20 },
+  in: { opacity: 1, x: 0 },
+  out: { opacity: 0, x: -20 },
 }
 
 const pageTransition = {
@@ -131,6 +131,8 @@ export function PageHeader({ title }) {
       display: 'flex',
       alignItems: 'center',
       gap: '1rem',
+      justifyContent: "space-between",
+      width: "100%",
       marginBottom: '1.5rem',
       paddingTop: '0.25rem',
     }}>

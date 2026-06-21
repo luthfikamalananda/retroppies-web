@@ -1,10 +1,10 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useSessionStore } from '../store/sessionStore'
-import { useDownload } from '../hooks/useDownload'
-import { getFilename } from '../utils/helpers'
-import { PageTransition, PageHeader, DownloadButton, Skeleton, StateCard } from '../components/ui'
+import { DownloadButton, PageHeader, PageTransition, StateCard } from '../components/ui'
 import { COLORS } from '../constants'
+import { useDownload } from '../hooks/useDownload'
+import { useSessionStore } from '../store/sessionStore'
+import { getFilename } from '../utils/helpers'
 
 const GRID_ICON = (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -51,7 +51,7 @@ export default function RawPhotoPage() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between", marginBottom: '1.5rem', gap: "12px" }}>
           <PageHeader title={`${photos.length} FOTO`} />
           {/* Toggle */}
           <div style={{
@@ -62,6 +62,7 @@ export default function RawPhotoPage() {
             overflow: 'hidden',
             marginLeft: 'auto',
             flexShrink: 0,
+            marginBottom: '1.2rem',
           }}>
             {['grid', 'list'].map((mode) => (
               <button
