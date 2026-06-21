@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import RootPage from './pages/RootPage'
+import SessionLayout from './components/SessionLayout'
 import HomePage from './pages/HomePage'
 import PhotoFramePage from './pages/PhotoFramePage'
 import RawPhotoPage from './pages/RawPhotoPage'
@@ -23,11 +25,14 @@ function AnimatedRoutes() {
         transition={{ duration: 0.8, ease: 'easeInOut' }}
       />
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/photo-frame" element={<PhotoFramePage />} />
-        <Route path="/raw-photo" element={<RawPhotoPage />} />
-        <Route path="/gif" element={<GifPage />} />
-        <Route path="/video" element={<VideoPage />} />
+        <Route path="/" element={<RootPage />} />
+        <Route path="/:sessionCode" element={<SessionLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="photo-frame" element={<PhotoFramePage />} />
+          <Route path="raw-photo" element={<RawPhotoPage />} />
+          <Route path="gif" element={<GifPage />} />
+          <Route path="video" element={<VideoPage />} />
+        </Route>
       </Routes>
     </AnimatePresence >
   )

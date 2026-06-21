@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams, useParams } from 'react-router-dom'
 import { COLORS } from '../constants'
+import { logoRetroppies } from '../assets'
 
 const pageVariants = {
   initial: { opacity: 0, x: 20 },
@@ -29,15 +30,29 @@ export function PageTransition({ children }) {
   )
 }
 
-// Back button with session code preserved
+// Logo Component
+export function Logo() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      style={{ textAlign: 'center', marginBottom: '1rem', marginTop: '1rem', width: '100%' }}
+    >
+      <motion.img src={logoRetroppies} className='w-full mx-auto' style={{ maxWidth: '280px', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} />
+    </motion.div>
+  )
+}
+
+// Back button with session code preserved as route parameter
 export function BackButton() {
   const navigate = useNavigate()
-  const [params] = useSearchParams()
+  const { sessionCode } = useParams()
 
   return (
     <button
       className="btn-back"
-      onClick={() => navigate(`/?session=${params.get('session') ?? ''}`)}
+      onClick={() => navigate(`/${sessionCode ?? ''}`)}
       aria-label="Kembali ke halaman utama"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

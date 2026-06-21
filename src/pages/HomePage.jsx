@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { logoRetroppies } from '../assets'
-import { PageTransition, Skeleton, StateCard } from '../components/ui'
+import { useNavigate, useParams } from 'react-router-dom'
+import { PageTransition, Skeleton, Logo } from '../components/ui'
 import { useSessionStore } from '../store/sessionStore'
 import { getExpiryInfo } from '../utils/helpers'
 
@@ -41,72 +39,15 @@ const itemVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' } },
 }
 
-// ── Logo Component ─────────────────────────────────────────────────────────────
-function Logo() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      style={{ textAlign: 'center', marginBottom: '1rem', marginTop: '1rem' }}
-    >
-      <motion.img src={logoRetroppies} className='w-full mx-auto' />
-    </motion.div>
-  )
-}
-
-
 export default function HomePage() {
-  const [params] = useSearchParams()
   const navigate = useNavigate()
-  const sessionCode = params.get('session')
-  const { fetchSession, sessionData, loading, error } = useSessionStore()
-
-  useEffect(() => {
-    fetchSession(sessionCode)
-  }, [sessionCode, fetchSession])
+  const { sessionCode } = useParams()
+  const { sessionData, loading } = useSessionStore()
 
   const expiry = getExpiryInfo(sessionData?.createdAt)
 
   const handleNav = (path) => {
-    navigate(`${path}?session=${sessionCode}`)
-  }
-
-  // ── Error: no code in URL ──────────────────────────────────────────
-  if (!sessionCode) {
-    return (
-      <PageTransition>
-        <div className="page-container" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Logo />
-          <StateCard
-            icon="🔗"
-            title="LINK TIDAK VALID"
-            message="Link yang kamu akses tidak memiliki kode sesi. Pastikan kamu menggunakan link yang diberikan setelah sesi foto selesai."
-          />
-        </div>
-      </PageTransition>
-    )
-  }
-
-  // ── Error: not found / network ─────────────────────────────────────
-  if (error === 'not-found' || error === 'network') {
-    return (
-      <PageTransition>
-        <div className="page-container" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Logo />
-          <StateCard
-            icon={error === 'network' ? '📡' : '🗂️'}
-            title={error === 'network' ? 'GAGAL TERHUBUNG' : 'SESI TIDAK DITEMUKAN'}
-            message={
-              error === 'network'
-                ? 'Tidak dapat terhubung ke server. Periksa koneksi internet kamu dan coba lagi.'
-                : 'Sesi ini tidak ditemukan atau sudah melewati masa retensi 7 hari.'
-            }
-            action={{ label: 'COBA LAGI', onClick: () => fetchSession(sessionCode) }}
-          />
-        </div>
-      </PageTransition>
-    )
+    navigate(`/${sessionCode}${path}`)
   }
 
   return (
@@ -154,7 +95,6 @@ export default function HomePage() {
             flexDirection: 'column',
             marginTop: '1.5rem',
             width: "100%",
-            // flex: 1,
           }}
         >
           {loading
