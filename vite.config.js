@@ -35,4 +35,5 @@ export default defineConfig({
   css: {
     // PostCSS handled via postcss.config.js
   },
+ base: './',
 })
