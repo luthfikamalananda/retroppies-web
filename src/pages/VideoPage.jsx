@@ -35,8 +35,11 @@ export default function VideoPage() {
           <StateCard
             icon="🎬"
             title="VIDEO TIDAK TERSEDIA"
-            message="Video belum tersedia untuk sesi ini. Coba lagi beberapa saat."
+            message={videoUrl
+              ? 'Video tidak dapat diputar di sini. Buka di tab baru untuk memutar atau mengunduhnya.'
+              : 'Video belum tersedia untuk sesi ini. Coba lagi beberapa saat.'}
             action={videoError ? { label: 'COBA LAGI', onClick: () => setVideoError(false) } : null}
+            secondaryAction={videoUrl ? { label: 'BUKA DI TAB BARU', href: videoUrl } : null}
           />
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', flex: 1 }}>

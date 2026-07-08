@@ -12,7 +12,7 @@ const MOCK_DATA = {
   photo4Url: 'https://picsum.photos/seed/raw3/800/1067',
   photo5Url: 'https://picsum.photos/seed/raw4/800/1067',
   gifUrl:    'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWJ4NHpxMTFpenV0OHd5bXBsaWR3bW50bm16cW9id2p2N3d2eGpiZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEjI6SIIHBdRxXI40/giphy.gif',
-  videoUrl:  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+  videoUrl:  'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
   isPublish: false,
   createdAt: new Date().toISOString(),
 }

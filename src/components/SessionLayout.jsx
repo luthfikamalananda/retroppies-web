@@ -4,14 +4,20 @@ import { useSessionStore } from '../store/sessionStore'
 import { PageTransition, StateCard, Logo } from './ui'
 
 export default function SessionLayout() {
-  const { sessionCode } = useParams()
-  const { fetchSession, sessionData, loading, error } = useSessionStore()
+  // Session Codes are canonical uppercase (QR-encoded / backend-returned).
+  // Normalize the URL segment so a hand-typed lower-case code still matches.
+  const { sessionCode: rawCode } = useParams()
+  const sessionCode = rawCode?.toUpperCase()
+  const { fetchSession, sessionData, error } = useSessionStore()
 
   useEffect(() => {
     if (sessionCode) {
       fetchSession(sessionCode)
     }
   }, [sessionCode, fetchSession])
+
+  // Session Data is "ready" only when it belongs to the code in the URL.
+  const isReady = sessionData?.sessionCode?.toUpperCase() === sessionCode
 
   // Handle errors (consume api sessioncode failed)
   if (error === 'not-found' || error === 'network') {
@@ -40,8 +46,9 @@ export default function SessionLayout() {
     )
   }
 
-  // Handle case where we don't have session data and we are loading
-  if (loading && (!sessionData || sessionData.sessionCode !== sessionCode)) {
+  // Not ready yet: either the fetch has not started (idle) or is in flight.
+  // Gate ALL child pages behind this so they never render without Session Data.
+  if (!isReady) {
     return (
       <PageTransition>
         <div className="page-container flex flex-col justify-center items-center min-h-[100dvh] py-10 z-10">

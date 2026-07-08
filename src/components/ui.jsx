@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useNavigate, useSearchParams, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { COLORS } from '../constants'
 import { logoRetroppies } from '../assets'
 
@@ -107,7 +107,7 @@ export function Skeleton({ style }) {
 }
 
 // Error / empty state card
-export function StateCard({ icon, title, message, action }) {
+export function StateCard({ icon, title, message, action, secondaryAction }) {
   return (
     <div style={{
       display: 'flex',
@@ -134,6 +134,23 @@ export function StateCard({ icon, title, message, action }) {
         <button className="btn-gold" style={{ maxWidth: '200px', marginTop: '0.5rem' }} onClick={action.onClick}>
           {action.label}
         </button>
+      )}
+      {secondaryAction && (
+        <a
+          href={secondaryAction.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-gaming"
+          style={{
+            fontSize: '0.7rem',
+            color: 'var(--color-gold)',
+            letterSpacing: '0.1em',
+            textDecoration: 'underline',
+            textUnderlineOffset: '3px',
+          }}
+        >
+          {secondaryAction.label}
+        </a>
       )}
     </div>
   )
