@@ -17,7 +17,7 @@ The payload returned by the backend for a Session (the `result` object): the med
 _Avoid_: result, response, payload
 
 **Photo Frame**:
-The single composite image where the guest's shots are laid onto a Retroppies template. Backed by `photo1Url`; also used as the Video's poster.
+The single composite image where the guest's shots are laid onto a Retroppies template. Backed by `photo1Url`.
 _Avoid_: composite, template photo, main photo
 
 **Raw Photo**:

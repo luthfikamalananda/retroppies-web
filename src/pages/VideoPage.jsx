@@ -13,7 +13,9 @@ export default function VideoPage() {
   const videoRef = useRef(null)
 
   const videoUrl = sessionData?.videoUrl
-  const posterUrl = sessionData?.photo1Url
+  // Show the video's own opening frame as the still (via the #t media fragment)
+  // instead of the Photo Frame, which misrepresents the clip's content.
+  const videoSrc = videoUrl ? `${videoUrl}#t=0.1` : undefined
 
   const handleDownload = () => {
     download(videoUrl, getFilename(videoUrl, 'retroppies-video.mp4'))
@@ -58,8 +60,7 @@ export default function VideoPage() {
             >
               <video
                 ref={videoRef}
-                src={videoUrl}
-                poster={posterUrl}
+                src={videoSrc}
                 controls
                 playsInline
                 preload="metadata"
